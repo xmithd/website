@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/xmithd/website#readme",
   "dependencies": {
-    "koa": "^2.5.3"
+    "bunyan": "^1.8.12",
+    "dotenv": "^6.1.0",
+    "koa": "^2.5.3",
+    "koa-helmet": "^4.0.0",
+    "uuid": "^3.3.2"
   }
 }
