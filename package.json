@@ -4,7 +4,10 @@
   "description": "Code for my toy website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js --watch server ",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,16 @@
     "dotenv": "^6.1.0",
     "koa": "^2.5.3",
     "koa-helmet": "^4.0.0",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.85.0",
+    "koa-proxy": "^0.9.0",
+    "nodemon": "^1.18.5"
   }
 }

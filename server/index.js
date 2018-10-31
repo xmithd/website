@@ -1,7 +1,16 @@
 
+// node dependencies
+const fs = require('fs');
+const path = require('path');
+const util = require('util');
+
+const readFile = util.promisify(fs.readFile);
+
 // libs
 const Koa = require('koa');
 const helmet = require('koa-helmet');
+const Router = require('koa-router');
+
 
 // our dependencies
 const logger = require('./logger');
@@ -23,13 +32,29 @@ function errorHandler(err, ctx) {
 
 const app = new Koa();
 
+const router = new Router();
+
 app.use(helmet());
 app.use(requestId());
 
 app.use(logMiddleware({ logger }));
-app.use(async ctx => {
+/*app.use(async ctx => {
   ctx.body = 'Hello World';
+});*/
+
+router.get('/', async (ctx, next) => {
+  try {
+    ctx.body = await readFile(path.join(__dirname, '../client/index.html'), 'utf-8');
+    next();
+  } catch (e) {
+    logger.error({exception: e});
+    ctx.body = 'Error!';
+    throw e;
+  }
 });
+
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 const server = app.listen(config.port, config.host, () => {
   console.log(`${config.name} running on ${config.protocol}:\/\/${config.host}:${config.port}`);
